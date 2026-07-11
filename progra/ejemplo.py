@@ -1,0 +1,10 @@
+def menu():
+    print("========== MENÚ PRINCIPAL ==========")
+    print("1. Stock de Notebook por código")
+    print("2. Búsqueda de Notebooks por rango de precio")
+    print("3. Actualizar precio de un Notebook")
+    print("4. Agregar nuevo Notebook")
+    print("5. Eliminar Notebook")
+    print("6. Salir del programa")
+    print("=====================================")
+menu()
