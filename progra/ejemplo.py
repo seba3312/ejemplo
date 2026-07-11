@@ -1,3 +1,4 @@
+
 def validar_nombre(mensaje:str)->str:
     while True:
         nombre = input(mensaje)
@@ -33,4 +34,5 @@ def menu():
     print("6. Salir del programa")
     print("=====================================")
     opcion = validar_numeros("Seleccione una opción: ")
+    if opcion == 1:
 menu()
