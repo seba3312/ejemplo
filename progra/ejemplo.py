@@ -108,6 +108,16 @@ def actualizar_precio():
         return True
     else:
         return False
+
+def eliminar_notebook(codigo):
+    if buscar_codigo(codigo):
+        del Notebooks[codigo]
+        del bodega[codigo]
+        
+        return True
+    else:
+        return False
+    
 def menu():
     while True:
         print("========== MENÚ PRINCIPAL ==========")
@@ -167,5 +177,14 @@ def menu():
                 Notebooks[codigo] = [modelo, memoria_ram, memoria_rom, tarjeta_video, modelo_tarjeta, tamaño_pantalla]
                 bodega[codigo] = [precio, stock]
                 print(f"Notebook {modelo} agregada exitosamente.")
+        elif opcion == 5:
+            codigo = validar_codigo("Ingrese el código del notebook a eliminar: ")
+            if eliminar_notebook(codigo):
+                print(f"Notebook con código {codigo} eliminada exitosamente.")
+            else:
+                print("El código no existe. No se pudo eliminar el notebook.")
+        elif opcion == 6:
+            print("Muchas gracias por usar el programa.")
+            break
 
 menu()
