@@ -27,6 +27,16 @@ def leer_opcion():
         except ValueError:
             print("Entrada inválida. Por favor, ingrese un número entero.")
 
+def validar_nombre(mensaje:str)->str:
+    while True:
+        nombre = input(mensaje)
+        if len(nombre) == 0:
+            print("El nombre no puede estar vacío.")
+        elif " " in nombre:
+            print("El nombre no debe contener espacios.")
+        else:
+            return nombre
+
 def validar_codigo(mensaje:str)->str:
     while True:
         codigo = input(mensaje).upper()
@@ -44,6 +54,19 @@ def validar_numeros(mensaje:str)->int:
             if valor == 0:
                 print("El valor no puede ser cero.")
             elif valor < 0:
+                print("No se pueden ingresar numeros negativos.")
+            elif " " in str(valor):
+                print("El valor no debe contener espacios.")
+            else:
+                return valor
+        except Exception:
+            print("Solo se pueden ingresar numeros enteros. ")
+
+def validar_numeros2(mensaje:str)->int:
+    while True:
+        try:
+            valor = int(input(mensaje))
+            if valor < 0:
                 print("No se pueden ingresar numeros negativos.")
             elif " " in str(valor):
                 print("El valor no debe contener espacios.")
@@ -126,6 +149,23 @@ def menu():
             if precio == True:
                 print("Precio actualizado")
             elif precio == False:
-                print("El codigo no existe")
+                print("El código no existe")
+        elif opcion == 4:
+            codigo = validar_codigo("Ingrese el código del nuevo notebook: ")
+            if buscar_codigo(codigo):
+                print("El código ya existe. No se puede agregar un notebook con el mismo código.")
+            else:
+                modelo = validar_nombre("Ingrese el modelo del notebook: ")
+                memoria_ram = validar_nombre("Ingrese la memoria RAM (ej. '16gb ram ddr5'): ")
+                memoria_rom = validar_nombre("Ingrese la memoria ROM (ej. '1tb disco'): ")
+                tarjeta_video = validar_nombre("Ingrese la tarjeta de video (ej. 'NVIDIA', 'AMD'): ")
+                modelo_tarjeta = validar_nombre("Ingrese el modelo de la tarjeta de video (ej. 'rtx 4060'): ")
+                tamaño_pantalla = validar_numeros2("Ingrese el tamaño de pantalla en pulgadas: ")
+                precio = validar_numeros("Ingrese el precio del notebook: ")
+                stock = validar_numeros2("Ingrese el stock disponible: ")
+
+                Notebooks[codigo] = [modelo, memoria_ram, memoria_rom, tarjeta_video, modelo_tarjeta, tamaño_pantalla]
+                bodega[codigo] = [precio, stock]
+                print(f"Notebook {modelo} agregada exitosamente.")
 
 menu()
