@@ -27,15 +27,16 @@ def leer_opcion():
         except ValueError:
             print("Entrada inválida. Por favor, ingrese un número entero.")
 
-def validar_nombre(mensaje:str)->str:
+def validar_codigo(mensaje:str)->str:
     while True:
-        nombre = input(mensaje)
-        if len(nombre) == 0:
-            print("El nombre no puede estar vacio.")
-        elif " " in nombre:
-            print("El nombre no debe contener espacios.")
+        codigo = input(mensaje).upper()
+        if len(codigo) == 0:
+            print("El código no puede estar vacío.")
+        elif " " in codigo:
+            print("El código no debe contener espacios.")
         else:
-            return nombre
+            return codigo
+
 def validar_numeros(mensaje:str)->int:
     while True:
         try:
@@ -69,6 +70,21 @@ def buscar_precio(precio_min, precio_max, bodega, Notebooks):
         if precio_min <= precio <= precio_max:
             encontrados.append(f" Código: {codigo}, Modelo: {Notebooks[codigo][0]}, Precio: ${precio}, Stock: {stock}")
     return encontrados
+
+def buscar_codigo(codigo):
+    if codigo in Notebooks and codigo in bodega:
+        return True
+    else:
+        return False
+
+def actualizar_precio():
+    codigo = validar_codigo("Ingrese el código de la notebook a actualizar: ")
+    if buscar_codigo(codigo):
+        nuevo_precio = validar_numeros("Ingrese el nuevo precio: ")
+        bodega[codigo][0] = nuevo_precio
+        return True
+    else:
+        return False
 def menu():
     while True:
         print("========== MENÚ PRINCIPAL ==========")
@@ -81,7 +97,7 @@ def menu():
         print("=====================================")
         opcion = leer_opcion()
         if opcion == 1:
-            codigo = validar_nombre("Ingrese el código de la notebook: ")
+            codigo = validar_codigo("Ingrese el código de la notebook: ")
             detalle_notebook(codigo)
         elif opcion == 2:
             while True:
@@ -105,6 +121,11 @@ def menu():
                             break
                 except ValueError:
                     print("Entrada inválida. Por favor, ingrese un número.")
-        
+        elif opcion == 3:
+            precio = actualizar_precio()
+            if precio == True:
+                print("Precio actualizado")
+            elif precio == False:
+                print("El codigo no existe")
 
 menu()
